@@ -8,19 +8,62 @@
 
 :root {
     /* colors */
-    --color-alpha-light: MEDIUMSLATEBLUE;
-    --color-alpha: SLATEBLUE;
+    
+    --color-alpha-x-light: #F2F2F9;
+    --color-alpha-light: #A5A4BF;
+    --color-alpha: #A3A0FB;
+    --color-alpha-dark: #4C4B68;
+    --color-alpha-x-dark: #43435D;
+    --color-alpha-xx-dark: #4D4F5C;
 
-    --color-neutral-light: LIGHTSLATEGRAY;
-    --color-neutral: SLATEGRAY;
-    --color-neutral-dark: DARKSLATEGRAY;
+    --global-color-neutral-xxxx-light: #F5F6FA;
+    --global-color-neutral-xxx-light: #E2E3E7;
+    --global-color-neutral-xx-light: #caccd4;
+    --global-color-neutral-x-light: #b5b6c0;
+    --global-color-neutral-light: #a0a1ad;
+    --global-color-neutral: #8b8c9a;
+    --global-color-neutral-dark: #757787;
+    --global-color-neutral-x-dark: #606274;
+    --global-color-neutral-xx-dark: #4b4c60;
+    --global-color-neutral-xxx-dark: #35374d;
+    --global-color-neutral-xxxx-dark: #20223a;
+    
+    
+    --color-beta: #3B86FF;
 
+    --color-gamma: #FF6565;
+
+    --color-neutral-light: #fff;
     /* Shadows */
+    --shadow-neutral: 0 2px 6px rgb(0,0,0,.04);
 
-    /* border radius */
+    /* borders */
+    --global-borderRadius: 5px;
+    --global-borderWidth: 1px;
 
     /* transitions */
     --transition-alpha: .1s;
+
+    /* Baseline settings */
+    --global-baseline: 8px;
+    --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
+
+    --global-whitespace-md: calc(var(--global-baseline) * 2); /*  = 16px */
+
+    /* Grid */
+    --grid-sidebar-width: 260px;
+    --grid-baseline: 5px;
+    --grid-header-height: 70px;
+
+    /* forms */
+    --global-placeholder-color: var(--color-alpha-x-light);
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--color-alpha-dark);
+    --global-input-borderColor: var(--color-alpha);
+    --global-input-hover-borderColor: var(--color-alpha-light);
+    --global-input-focus-borderColor: var(--color-alpha);
+    --global-input-focus-boxShadowColor: var(--color-alpha);
+    --global-input-focus-boxShadow: 0 0 0 1px var(--global-input-focus-boxShadowColor);
 }
 
 /*------------------------------------*\
@@ -34,14 +77,14 @@
 */
 
 html {
-    font-size: 16px;
+    font-size: 15px; /* = 1rem */
     line-height: 1.5;
-    font-family: Helvetica, arial, sans-serif;
-    color: var(--color-neutral-dark);
+    font-family: 'Source Sans Pro', Helvetica, arial, sans-serif;
+    color: var(--color-alpha-xx-dark);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: white;
+    background-color: var(--color-neutral-light);
 }
 
 *,
@@ -184,7 +227,7 @@ a:active {
 
 a:hover,
 a:focus {
-    color: var(--color-alpha-light);
+    color: var(--color-alpha-x-light);
 }
 
 label,
@@ -290,14 +333,255 @@ input::placeholder {
 \*------------------------------------*/
 
 /*
+    Component: App
+    ---
+    Website main app
+*/
+
+.c-app{
+    min-height: 100vh;
+}
+
+.c-app__logo{
+    background: var(--color-alpha-x-dark);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between; 
+}
+
+.c-app__topbar{
+    
+    background: var(--color-neutral-light);
+    box-shadow: var(--shadow-neutral);
+    display: none;
+}
+
+.c-app__sidebar{
+    
+    background: var(--color-alpha-dark);
+    display: none;
+}
+
+.c-app__main{
+    padding: 2rem 5rem;
+    background: #F0F0F7;
+}
+
+.c-app__hamburger{
+    display: block;
+    margin-right: 1rem;
+    fill: var(--color-neutral-light);
+}
+
+.c-app__hamburger--icon{
+    height: 2rem;
+    width: 2rem;
+}
+
+@media screen and (min-width: 65rem){
+    .c-app{
+        display: grid; /* alle items uit deze container worden hieruit gestyled */
+        grid-template-columns: var(--grid-sidebar-width) auto;
+        grid-template-rows: calc(var(--grid-baseline) * 14) auto;
+    }
+
+    .c-app__hamburger{
+        display: none;
+    }
+
+    .c-app__sidebar,
+    .c-app__topbar{
+        display: block;
+    }
+
+    .c-app__sidebar,
+    .c-app__main{
+        height: calc(100vh - var(--grid-header-height));
+
+        overflow-y: scroll;
+        overflow-x: none;
+    }
+}
+
+/*
     Component: Logo
     ---
     Website main logo
 */
 
+.c-logo,
+.c-logo:active,
+.c-logo:visited{
+    margin: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-neutral-light);
+    line-height: 4.6rem;
+    padding: 1rem;
+    font-weight: bold;
+    letter-spacing: 0.3rem;
+}
+
+/*
+    Component: Main menu
+    ---
+    Website main menu
+*/
+
+.c-main-menu{
+
+}
+
+.c-main-menu__list{
+    padding-left: 0;
+}
+
+.c-main-menu__item{
+    margin: var(--grid-baseline) 0;
+
+    border-left: var(--grid-baseline) solid var(--local-border-color ,transparent);
+    background: var(--local-background-color);
+
+    transition-duration: 200ms;
+}
+
+.c-main-menu__symbol{
+    height: 1rem;
+    width: 1rem;
+    margin-right: calc(var(--grid-baseline) * 2);
+    fill: var(--local-symbol-color, --color-alpha-light);
+
+
+}
+
+.c-main-menu__link,
+.c-main-menu__link:active,
+.c-main-menu__link:visited{
+
+    /* Box-model */
+    display: flex;
+    align-items: center;
+    padding: calc(var(--grid-baseline) * 3) calc((var(--grid-baseline) * 4) - var(--grid-baseline));
+
+    font-size: 1rem;
+    line-height: calc(var(--grid-baseline) * 4.7);
+    color: var(--color-neutral-light);
+    text-decoration: none;
+
+    /* Appearance */
+    fill: var(--color-alpha-x-light);
+}
+
+.c-main-menu__item:hover,
+.c-main-menu__item:focus,
+.c-main-menu__item.is-selected{
+    --local-symbol-color: var(--color-alpha);
+    --local-border-color: var(--color-alpha);
+    --local-background-color: var(--color-alpha-x-dark);
+}
+
+
+
+/*
+    Component: Dashboard
+    ---
+    Dashboard
+*/
+
+.c-dashboard {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+}
+
+.c-dashboard__item {
+    background: var(--color-neutral-light);
+    padding: 1rem;
+}
+
+/*
+    Component: Card
+    ---
+    Dashboard Cards
+*/
+
+.c-card__header {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*
+    Component: Custom select
+    ---
+    Select
+*/
+
+.c-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 10rem;
+    border: var(--global-borderWidth) solid var(var(--global-input-borderColor));
+    border-radius: var(--global-borderRadius);
+    background-color: var(--global-input-backgroundColor);
+    color: var(--global-input-color);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: calc(var(--global-baseline) * 3);
+    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
+    outline: none;
+    transition: border var(--transition-alpha), box-shadow var(--transition-alpha);
+}
+
+.c-custom-select {
+    display: block;
+    position: relative;
+}
+
+.c-custom-select__symbol {
+    width: calc(var(--grid-baseline) * 5);
+    height: var(--global-whitespace);
+    position: absolute;
+    top: calc(var(--global-whitespace) / 2);
+    right: calc(var(--global-whitespace) / 2);
+    pointer-events: none;
+    fill: var(--color-alpha-light);
+}
+
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
+
+/*
+    Utilities: Width grid
+    ---
+    Changes size of grid columns
+*/
+
+.u-span-column-12 {
+    grid-column: span 12;
+}
+
+.u-span-column-8 {
+    grid-column: span 8;
+}
+
+.u-span-column-6 {
+    grid-column: span 6;
+}
+
+.u-span-column-4 {
+    grid-column: span 4;
+}
+
+
+
+.u-span-row-2 {
+    grid-row: span 2;
+}
 
 /*
     Utilities: color
